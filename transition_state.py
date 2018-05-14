@@ -37,7 +37,7 @@ class TransitionState:
         for i in range(len(self.lineV)):
             if newTState.values[i] == 0 or newTState.lineV[i] == 0:
                 return
-            if not self.pips[0] and not self.pips[1] and not self.pips[2]:
+            if self.pips[0] == dot and self.pips[1] == dot and self.pips[2] == dot:
                 # dot => 0, so if every pip is a dot
                 return
 
@@ -48,7 +48,7 @@ class TransitionState:
             # if current pip is a startpoint, it becomes an endpoint
             newTState.pips[i]+=1
             newTState.pips[i+1]+=1
-            
+
             if newTState.pips[i] == endpoint and newTState.pips[i+1] == endpoint:
                 newTState.lineSegments -= 1
             if newTState.pips[i] == startpoint and newTState.pips[i + 1] == startpoint:
