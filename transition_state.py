@@ -1,8 +1,8 @@
 from OldState import *
 
-dot = 0
+startpoint = 0
 endpoint = 1
-startpoint = 2
+dot = 2
 
 class TransitionState:
 
@@ -25,7 +25,7 @@ class TransitionState:
         self.lineSegments = ls
 
     def makeOldState(self):
-        os = OldState(self.endpoint, self.lineV)
+        os = OldState(self.pips, self.lineV)
         return os
 
     def addHorizontal(self):
@@ -44,16 +44,11 @@ class TransitionState:
             newTState = TransitionState(self.values, self.lineH, self.lineV, self.pips, self.lineSegments)
             newTState.lineV[i] = True
             newTState.values[i] -= 1
-            if newTState.pips[i] == endpoint: # if current pip is an endpoint, it becomes a dot
-                newTState.pips[i] = dot
-            if newTState.pips[i] == startpoint: # if currrent pip is a startpoint, it becomes an endpoint
-                newTState.pips[i] = endpoint
-
-            if newTState.pips[i+1] == endpoint: # sames goes for connecting pip
-                newTState.pips[i+1] = dot
-            if newTState.pips[i+1] == startpoint:
-                newTState.pips[i+1] = endpoint
-
+            # if current pip is an endpoint, it becomes a dot
+            # if current pip is a startpoint, it becomes an endpoint
+            newTState.pips[i]+=1
+            newTState.pips[i+1]+=1
+            
             if newTState.pips[i] == endpoint and newTState.pips[i+1] == endpoint:
                 newTState.lineSegments -= 1
             if newTState.pips[i] == startpoint and newTState.pips[i + 1] == startpoint:
