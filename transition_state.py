@@ -10,8 +10,9 @@ class TransitionState:
     lineH = [False, False]
     lineV = [False, False]
     pips = [startpoint, startpoint, startpoint]
+    lineSegments = 0
 
-    def __init__(self, v=None, lh=None, lv=None, ep=None):
+    def __init__(self, v=None, lh=None, lv=None, ep=None, ls=0):
         if v is not None and len(v) == 2:
             self.values = v
         if lh is not None and len(lh) == 3:
@@ -20,6 +21,8 @@ class TransitionState:
             self.lineV = lv
         if ep is not None and len(ep) == 3:
             self.pips = ep
+        
+        self.lineSegments = ls
 
     def makeOldState(self):
         os = OldState(self.endpoint, self.lineV)
