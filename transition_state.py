@@ -96,7 +96,7 @@ class TransitionState:
         newStates = []
 
         for i in range(len(self.lineV)):
-            if newTState.values[i] == 0 or newTState.lineV[i] == 0:
+            if self.values[i] == 0 or self.lineV[i] == 0:
                 return
             if self.pips[0] == dot and self.pips[1] == dot and self.pips[2] == dot:
                 # if every pip is a dot, no lines can be drawn
