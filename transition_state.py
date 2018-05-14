@@ -98,7 +98,7 @@ class TransitionState:
             if newTState.values[i] == 0 or newTState.lineV[i] == 0:
                 return
             if self.pips[0] == dot and self.pips[1] == dot and self.pips[2] == dot:
-                # dot => 0, so if every pip is a dot
+                # if every pip is a dot, no lines can be drawn
                 return
 
             newTState = TransitionState(self.values, self.lineH, self.lineV, self.pips, self.lineSegments)
@@ -122,7 +122,9 @@ class TransitionState:
         if len(newStates) == 0:
             return
 
-        newStates.extend(self.addVerticalLines())
+        # make recursive call on the first element in the new states list
+        # this adds the case where two vertical lines are drawn.
+        newStates.extend(newStates[0].addVerticalLines())
 
         return newStates
 
