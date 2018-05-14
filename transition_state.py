@@ -65,7 +65,6 @@ class TransitionState:
 
                 newState.pips[1] += 1
 
-
                 newStates.append(newState)
 
             if (idx == 2
