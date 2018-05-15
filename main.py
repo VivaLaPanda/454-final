@@ -27,7 +27,7 @@ def print_output(trans_state):
     while (parent != None):
 
 
-        if parent.lineV[0]:
+        if parent.lineH[0]:
             output0 += " ___"
         else:
             output0 += "    "
