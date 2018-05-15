@@ -12,7 +12,8 @@ def main():
     for i in range(len(input_array)):
         snake_nfa.consumeInput(input_array[i])
         print(input_array[i])
-
+    if (len(snake_nfa.currentStates) > 0):
+        print_output(snake_nfa.currentStates[0])
     return
 
 def parse_input(w):
@@ -25,11 +26,13 @@ def print_output(trans_state):
     output2 = ""
     parent = trans_state
     parent_list = []
+
     while (parent != None):
         parent_list.append(parent)
         parent = parent.parent
 
-    for i in range(parent_list):
+
+    for i in range(len(parent_list)):
 
         if parent_list[i].lineH[0]:
             output0 += " ___"
@@ -45,22 +48,24 @@ def print_output(trans_state):
         else:
             output1 += " " + str(parent_list[i].values[0]) + " "
 
-        if parent_list[i].lineV[2]:
+        if parent_list[i].lineV[1]:
             output2 += "|"
         else:
             output2 += " "
 
         if parent_list[i].lineH[1]:
-            output1 += "_" + str(parent_list[i].values[1]) + "_"
+            output2 += "_" + str(parent_list[i].values[1]) + "_"
         else:
-            output1 += " " + str(parent_list[i].values[1]) + " "
+            output2 += " " + str(parent_list[i].values[1]) + " "
 
-    output0.replace("-1"," ")
-    output1.replace("-1"," ")
-    output2.replace("-1"," ")
+    #output0.replace("-1"," ")
+    #output1.replace("-1"," ")
+    #output2.replace("-1"," ")
 
     print(output0)
+    print()
     print(output1)
+    print()
     print(output2)
     return
 

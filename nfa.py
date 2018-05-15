@@ -35,7 +35,8 @@ class Nfa:
                 tempArr = tempArr + elem.addVerticalLines()
 
             # Remove duplicates in tempArr
-
+            for element in tempArr:
+                element.parent = oldState
             # Concat next states with new states
             self.nextStates = self.nextStates + tempArr[:]
 
