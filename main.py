@@ -20,24 +20,34 @@ def parse_input(w):
     return h
 
 def print_output(trans_state):
-    output = ""
+    output0 = ""
+    output1 = ""
+    output2 = ""
+
+
     if trans_state.lineV[0]:
-        output+= "|"
+        output0 += " ___"
     else:
-        output+=" "
+        output0 += "    "
+    if trans_state.lineV[1]:
+        output1 += "|"
+    else:
+        output1 += " "
+
     if trans_state.lineH[0]:
-        output+= "_"
-        output+= trans_state.values
-        output+= 
+        output1 += "_" + trans_state.values[0] + "_"
     else:
+        output1 += " " + trans_state.values[0] + " "
+
+    if trans_state.lineV[2]:
+        output2 += "|"
+    else:
+        output2 += " "
 
     if trans_state.lineH[1]:
-        return
+        output1 += "_" + trans_state.values[1] + "_"
     else:
-
-    if trans_state.lineV[1]:
-        return
-    else:
+        output1 += " " + trans_state.values[1] + " "
 
     return
 
