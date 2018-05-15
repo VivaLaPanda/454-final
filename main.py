@@ -24,34 +24,37 @@ def print_output(trans_state):
     output1 = ""
     output2 = ""
     parent = trans_state
+    parent_list = []
     while (parent != None):
+        parent_list.append(parent)
+        parent = parent.parent
 
+    for i in range(parent_list):
 
-        if parent.lineH[0]:
+        if parent_list[i].lineH[0]:
             output0 += " ___"
         else:
             output0 += "    "
-        if parent.lineV[1]:
+        if parent_list[i].lineV[1]:
             output1 += "|"
         else:
             output1 += " "
 
-        if parent.lineH[0]:
-            output1 += "_" + str(parent.values[0]) + "_"
+        if parent_list[i].lineH[0]:
+            output1 += "_" + str(parent_list[i].values[0]) + "_"
         else:
-            output1 += " " + str(parent.values[0]) + " "
+            output1 += " " + str(parent_list[i].values[0]) + " "
 
-        if parent.lineV[2]:
+        if parent_list[i].lineV[2]:
             output2 += "|"
         else:
             output2 += " "
 
-        if parent.lineH[1]:
-            output1 += "_" + str(parent.values[1]) + "_"
+        if parent_list[i].lineH[1]:
+            output1 += "_" + str(parent_list[i].values[1]) + "_"
         else:
-            output1 += " " + str(parent.values[1]) + " "
+            output1 += " " + str(parent_list[i].values[1]) + " "
 
-        parent = parent.parent
     output0.replace("-1"," ")
     output1.replace("-1"," ")
     output2.replace("-1"," ")
