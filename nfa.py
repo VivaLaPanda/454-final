@@ -1,3 +1,4 @@
+from transition_state import *
 class Nfa:
     def __init__(self):
         self.currentStates = [] # old-state type

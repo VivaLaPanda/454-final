@@ -101,17 +101,16 @@ class TransitionState:
         return newStates
 
     def addVerticalLines(self):
-        # TODO: test this function. 
         newStates = []
 
         for i in range(len(self.lineV)):
-            if self.values[i] == 0 or self.lineV[i] == 0:
-                return
+            if self.values[i] == 0 or self.lineV[i]:
+                continue
             if self.pips[0] == dot and self.pips[1] == dot and self.pips[2] == dot:
                 # if every pip is a dot, no lines can be drawn
-                return
+                return []
 
-            newTState = TransitionState(self.values, self.lineH, self.lineV, self.pips, self.lineSegments)
+            newTState = TransitionState(self.values[:], self.lineH[:], self.lineV[:], self.pips[:], self.lineSegments)
             newTState.lineV[i] = True
             newTState.values[i] -= 1
             # if current pip is an endpoint, it becomes a dot
@@ -125,22 +124,15 @@ class TransitionState:
                 newTState.lineSegments += 1
 
             if newTState.lineSegments > 3:
-                return
+                return []
 
             newStates.append(newTState)
 
         if len(newStates) == 0:
-            return
+            return []
 
         # make recursive call on the first element in the new states list
         # this adds the case where two vertical lines are drawn.
         newStates.extend(newStates[0].addVerticalLines())
 
         return newStates
-
-testStateOld = TransitionState(
-    [0, 0],
-    [False, True, False],
-    [False, False],
-    [0, 1, 0],
-    1)
