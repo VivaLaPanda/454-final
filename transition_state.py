@@ -44,7 +44,7 @@ class TransitionState:
                 continue
 
             if idx == 0 \
-                    and self.values[0] > 0 \
+                    and self.values[0] != 0 \
                     and self.lineH[0] == False:
                 newState = copy.deepcopy(self)
                 newState.parent = self
@@ -61,8 +61,8 @@ class TransitionState:
                     newStates.append(newState)
 
             if (idx == 1
-                    and self.values[0] > 0
-                    and self.values[1] > 0
+                    and self.values[0] != 0
+                    and self.values[1] != 0
                     and self.lineH[1] == False):
                 newState = copy.deepcopy(self)
                 newState.parent = self
@@ -80,7 +80,7 @@ class TransitionState:
                     newStates.append(newState)
 
             if (idx == 2
-                    and self.values[1] > 0
+                    and self.values[1] != 0
                     and self.lineH[2] == False):
                 newState = copy.deepcopy(self)
                 newState.parent = self

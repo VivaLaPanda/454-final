@@ -1,7 +1,10 @@
 from transition_state import *
 class Nfa:
-    def __init__(self):
-        self.currentStates = [] # old-state type
+    def __init__(self, firstInput):
+        startingState = TransitionState()
+        startingState.values = firstInput.values
+
+        self.currentStates = startingState.addVerticalLines()
         self.nextStates = [] # transition state type
 
     def consumeInput(self, inputArr):
@@ -9,6 +12,7 @@ class Nfa:
             raise ValueError('Incorrect parameter for inputArr. Should be int array of length 2.')
 
         baseState = TransitionState()
+        baseState.values = inputArr
 
         # Look at each old state
         for oldState in self.currentStates:
