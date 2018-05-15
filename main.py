@@ -53,8 +53,10 @@ def print_output(trans_state):
         else:
             output0 += "\t"
 
-
-        output1 += "\t" + str(parent_list[i+1].viewvalues[0])
+        if parent_list[i+1].viewvalues[0] == -1:
+            output1 += "\t  "
+        else:
+            output1 += "\t " + str(parent_list[i+1].viewvalues[0])
 
         if parent_list[i+1].lineV[0]:
             output1 += "|"
@@ -67,7 +69,10 @@ def print_output(trans_state):
         else:
             output2 += "\t   "
 
-        output3 += "\t" + str(parent_list[i+1].viewvalues[1])
+        if parent_list[i+1].viewvalues[1] == -1:
+            output3 += "\t  "
+        else:
+            output3 += "\t " + str(parent_list[i+1].viewvalues[1])
 
         if parent_list[i+1].lineV[1]:
             output3 += "|"
