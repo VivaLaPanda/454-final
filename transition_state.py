@@ -24,6 +24,7 @@ class TransitionState:
         if ep is not None and len(ep) == 3:
             self.pips = ep
 
+        self.viewvalues = self.values[:]
         self.lineSegments = ls
 
     def makeOldState(self):

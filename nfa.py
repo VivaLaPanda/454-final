@@ -13,6 +13,7 @@ class Nfa:
 
         baseState = TransitionState()
         baseState.values = inputArr[:]
+        baseState.viewvalues = inputArr[:]
 
         # Look at each old state
         for oldState in self.currentStates:
