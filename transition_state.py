@@ -13,6 +13,7 @@ class TransitionState:
         self.lineV = [False, False]
         self.pips = [startpoint, startpoint, startpoint]
         self.lineSegments = 0
+        self.parent = None
 
         if v is not None and len(v) == 2:
             self.values = v
@@ -46,6 +47,8 @@ class TransitionState:
                     and self.values[0] > 0 \
                     and self.lineH[0] == False:
                 newState = copy.deepcopy(self)
+                newState.parent = self
+
                 newState.lineH[0] = True
                 newState.values[0] -= 1
 
@@ -62,6 +65,8 @@ class TransitionState:
                     and self.values[1] > 0
                     and self.lineH[1] == False):
                 newState = copy.deepcopy(self)
+                newState.parent = self
+
                 newState.lineH[1] = True
                 newState.values[0] -= 1
                 newState.values[1] -= 1
@@ -78,6 +83,8 @@ class TransitionState:
                     and self.values[1] > 0
                     and self.lineH[2] == False):
                 newState = copy.deepcopy(self)
+                newState.parent = self
+
                 newState.lineH[2] = True
                 newState.values[0] -= 1
 
@@ -126,6 +133,7 @@ class TransitionState:
             if newTState.lineSegments > 3:
                 return []
 
+            newTState.parent = self
             newStates.append(newTState)
 
         if len(newStates) == 0:
