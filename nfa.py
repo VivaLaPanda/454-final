@@ -3,6 +3,7 @@ class Nfa:
     def __init__(self, firstInput):
         startingState = TransitionState()
         startingState.values = firstInput
+        startingState.viewvalues = firstInput[:]
 
         self.currentStates = startingState.addVerticalLines()
         self.nextStates = [] # transition state type

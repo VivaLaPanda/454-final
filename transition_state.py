@@ -7,7 +7,7 @@ dot = 2
 
 class TransitionState:
 
-    def __init__(self, v=None, lh=None, lv=None, ep=None, ls=0):
+    def __init__(self, v=None, lh=None, lv=None, ep=None, ls=0, viewValues=None):
         self.values = [0, 0]
         self.lineH = [False, False, False]
         self.lineV = [False, False]
@@ -24,7 +24,10 @@ class TransitionState:
         if ep is not None and len(ep) == 3:
             self.pips = ep
 
-        self.viewvalues = self.values[:]
+        if viewValues == None:
+            self.viewvalues = self.values[:]
+        else:
+            self.viewvalues = viewValues[:]
         self.lineSegments = ls
 
     def makeOldState(self):
@@ -115,7 +118,7 @@ class TransitionState:
                 # if every pip is a dot, no lines can be drawn
                 return []
 
-            newTState = TransitionState(self.values[:], self.lineH[:], self.lineV[:], self.pips[:], self.lineSegments)
+            newTState = TransitionState(self.values[:], self.lineH[:], self.lineV[:], self.pips[:], self.lineSegments, self.viewvalues)
             newTState.lineV[i] = True
             newTState.values[i] -= 1
 
