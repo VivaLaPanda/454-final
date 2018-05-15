@@ -13,7 +13,8 @@ def main():
         snake_nfa.consumeInput(input_array[i])
         print(input_array[i])
     if (len(snake_nfa.currentStates) > 0):
-        print_output(snake_nfa.currentStates[0])
+        for i in range(len(snake_nfa.currentStates)):
+            print_output(snake_nfa.currentStates[i])
     return
 
 def parse_input(w):
@@ -24,6 +25,8 @@ def print_output(trans_state):
     output0 = ""
     output1 = ""
     output2 = ""
+    output3 = ""
+    output4 = ""
     parent = trans_state
     parent_list = []
 
@@ -31,7 +34,14 @@ def print_output(trans_state):
         parent_list.insert(0,parent)
         parent = parent.parent
 
-
+    if parent_list[0].lineV[0]:
+        output1 += "|"
+    else:
+        output1 += " "
+    if parent_list[0].lineV[1]:
+        output1 += "|"
+    else:
+        output1 += " "
     for i in range(len(parent_list)-1):
 
         #output1+= str(parent_list[i+1].viewvalues[0]) + " "
@@ -39,38 +49,53 @@ def print_output(trans_state):
 
 
         if parent_list[i+1].lineH[0]:
-            output0 += "___"
+            output0 += "\t--"
         else:
-            output0 += "   "
+            output0 += "\t"
 
-        if parent_list[i+1].lineH[1]:
-            output1 += "_" + str(parent_list[i+1].viewvalues[0]) + "_"
-        else:
-            output1 += " " + str(parent_list[i+1].viewvalues[0]) + " "
+
+        output1 += "\t" + str(parent_list[i+1].viewvalues[0])
 
         if parent_list[i+1].lineV[0]:
             output1 += "|"
         else:
             output1 += " "
 
-        if parent_list[i].lineH[2]:
-            output2 += "_" + str(parent_list[i+1].viewvalues[1]) + "_"
-        else:
-            output2 += " " + str(parent_list[i+1].viewvalues[1]) + " "
-        if parent_list[i + 1].lineV[1]:
-            output2 += "|"
-        else:
-            output2 += " "
 
-    #output0.replace("-1"," ")
-    #output1.replace("-1"," ")
-    #output2.replace("-1"," ")
+        if parent_list[i+1].lineH[1]:
+            output2 += "\t--"
+        else:
+            output2 += "\t   "
+
+        output3 += "\t" + str(parent_list[i+1].viewvalues[1])
+
+        if parent_list[i+1].lineV[1]:
+            output3 += "|"
+        else:
+            output3 += " "
+
+        if parent_list[i+1].lineH[2]:
+            output4 += "\t--"
+        else:
+            output4 += "\t   "
+
+
+
+
     print()
     print(output0)
     print()
     print(output1)
     print()
     print(output2)
+    print()
+    print(output3)
+    print()
+    print(output4)
+    print()
+    print()
+    print()
+    print()
     return
 
 main()
