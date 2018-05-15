@@ -47,7 +47,6 @@ class TransitionState:
                     and self.values[0] != 0 \
                     and self.lineH[0] == False:
                 newState = copy.deepcopy(self)
-                newState.parent = self
 
                 newState.lineH[0] = True
                 newState.values[0] -= 1
@@ -65,7 +64,6 @@ class TransitionState:
                     and self.values[1] != 0
                     and self.lineH[1] == False):
                 newState = copy.deepcopy(self)
-                newState.parent = self
 
                 newState.lineH[1] = True
                 newState.values[0] -= 1
@@ -83,10 +81,9 @@ class TransitionState:
                     and self.values[1] != 0
                     and self.lineH[2] == False):
                 newState = copy.deepcopy(self)
-                newState.parent = self
 
                 newState.lineH[2] = True
-                newState.values[0] -= 1
+                newState.values[1] -= 1
 
                 if oldState.pips[2] == startpoint:
                     newState.lineSegments += 1
@@ -120,20 +117,20 @@ class TransitionState:
             newTState = TransitionState(self.values[:], self.lineH[:], self.lineV[:], self.pips[:], self.lineSegments)
             newTState.lineV[i] = True
             newTState.values[i] -= 1
-            # if current pip is an endpoint, it becomes a dot
-            # if current pip is a startpoint, it becomes an endpoint
-            newTState.pips[i]+=1
-            newTState.pips[i+1]+=1
 
             if newTState.pips[i] == endpoint and newTState.pips[i+1] == endpoint:
                 newTState.lineSegments -= 1
             if newTState.pips[i] == startpoint and newTState.pips[i + 1] == startpoint:
                 newTState.lineSegments += 1
 
+            # if current pip is an endpoint, it becomes a dot
+            # if current pip is a startpoint, it becomes an endpoint
+            newTState.pips[i]+=1
+            newTState.pips[i+1]+=1
+
             if newTState.lineSegments > 3:
                 return []
 
-            newTState.parent = self
             newStates.append(newTState)
 
         if len(newStates) == 0:
