@@ -28,40 +28,44 @@ def print_output(trans_state):
     parent_list = []
 
     while (parent != None):
-        parent_list.append(parent)
+        parent_list.insert(0,parent)
         parent = parent.parent
 
 
-    for i in range(len(parent_list)):
+    for i in range(len(parent_list)-1):
 
-        if parent_list[i].lineH[0]:
-            output0 += " ___"
+        #output1+= str(parent_list[i+1].viewvalues[0]) + " "
+        #output2+= str(parent_list[i+1].viewvalues[1]) + " "
+
+
+        if parent_list[i+1].lineH[0]:
+            output0 += "___"
         else:
-            output0 += "    "
-        if parent_list[i].lineV[1]:
+            output0 += "   "
+
+        if parent_list[i+1].lineH[1]:
+            output1 += "_" + str(parent_list[i+1].viewvalues[0]) + "_"
+        else:
+            output1 += " " + str(parent_list[i+1].viewvalues[0]) + " "
+
+        if parent_list[i+1].lineV[0]:
             output1 += "|"
         else:
             output1 += " "
 
-        if parent_list[i].lineH[0]:
-            output1 += "_" + str(parent_list[i].values[0]) + "_"
+        if parent_list[i].lineH[2]:
+            output2 += "_" + str(parent_list[i+1].viewvalues[1]) + "_"
         else:
-            output1 += " " + str(parent_list[i].values[0]) + " "
-
-        if parent_list[i].lineV[1]:
+            output2 += " " + str(parent_list[i+1].viewvalues[1]) + " "
+        if parent_list[i + 1].lineV[1]:
             output2 += "|"
         else:
             output2 += " "
 
-        if parent_list[i].lineH[1]:
-            output2 += "_" + str(parent_list[i].values[1]) + "_"
-        else:
-            output2 += " " + str(parent_list[i].values[1]) + " "
-
     #output0.replace("-1"," ")
     #output1.replace("-1"," ")
     #output2.replace("-1"," ")
-
+    print()
     print(output0)
     print()
     print(output1)
