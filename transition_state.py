@@ -7,13 +7,13 @@ dot = 2
 
 class TransitionState:
 
-    values = [0, 0]
-    lineH = [False, False]
-    lineV = [False, False]
-    pips = [startpoint, startpoint, startpoint]
-    lineSegments = 0
-
     def __init__(self, v=None, lh=None, lv=None, ep=None, ls=0):
+        self.values = [0, 0]
+        self.lineH = [False, False, False]
+        self.lineV = [False, False]
+        self.pips = [startpoint, startpoint, startpoint]
+        self.lineSegments = 0
+
         if v is not None and len(v) == 2:
             self.values = v
         if lh is not None and len(lh) == 3:
@@ -29,12 +29,17 @@ class TransitionState:
         os = OldState(self.pips, self.lineV)
         return os
 
-    def addHorizontal(self, oldState):
+    def addHorizontal(self, oldState, depth=0):
         newStates = []
 
         idx = 0
-        for element in oldState.pips:
-            if (element == dot):
+        for oldPip in oldState.pips:
+            if (oldPip == dot):
+                idx += 1
+                continue
+
+            if (depth == 0 and oldPip == startpoint):
+                idx += 1
                 continue
 
             if idx == 0 \
@@ -49,7 +54,8 @@ class TransitionState:
 
                 newState.pips[0] += 1
 
-                newStates.append(newState)
+                if not newState.lineSegments > 2:
+                    newStates.append(newState)
 
             if (idx == 1
                     and self.values[0] > 0
@@ -65,7 +71,8 @@ class TransitionState:
 
                 newState.pips[1] += 1
 
-                newStates.append(newState)
+                if not newState.lineSegments > 2:
+                    newStates.append(newState)
 
             if (idx == 2
                     and self.values[1] > 0
@@ -79,14 +86,17 @@ class TransitionState:
 
                 newState.pips[2] += 1
 
-                newStates.append(newState)
+                if not newState.lineSegments > 2:
+                    newStates.append(newState)
+
+            idx += 1
 
         if len(newStates) == 0:
             return newStates
 
         for state in newStates:
-            newState = state.addHorizontal(oldState)
-            newStates.append(newState)
+            childStates = state.addHorizontal(oldState, depth + 1)
+            newStates.extend(childStates)
 
         return newStates
 
@@ -128,3 +138,9 @@ class TransitionState:
 
         return newStates
 
+testStateOld = TransitionState(
+    [0, 0],
+    [False, True, False],
+    [False, False],
+    [0, 1, 0],
+    1)
