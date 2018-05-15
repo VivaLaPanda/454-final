@@ -1,7 +1,7 @@
-from nfa import *
-from transition_state import *
-import re
 import ast
+
+from nfa import *
+
 
 def main():
 
@@ -11,10 +11,15 @@ def main():
     snake_nfa = Nfa(input_array[0])
     for i in range(len(input_array)):
         snake_nfa.consumeInput(input_array[i])
-        print(input_array[i])
+        # print(input_array[i])
     if (len(snake_nfa.currentStates) > 0):
-        for i in range(len(snake_nfa.currentStates)):
-            print_output(snake_nfa.currentStates[i])
+        print('yes')
+    else:
+        print('no')
+    # if (len(snake_nfa.currentStates) > 0):
+    #     for i in range(len(snake_nfa.currentStates)):
+    #         if snake_nfa.currentStates[i].lineSegments == 1:
+    #             print_output(snake_nfa.currentStates[i])
     return
 
 def parse_input(w):

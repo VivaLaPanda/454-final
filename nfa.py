@@ -6,6 +6,7 @@ class Nfa:
         startingState.viewvalues = firstInput[:]
 
         self.currentStates = startingState.addVerticalLines()
+        self.currentStates.append(startingState)
         self.nextStates = [] # transition state type
 
     def consumeInput(self, inputArr):
@@ -37,10 +38,14 @@ class Nfa:
                 tempArr = tempArr + elem.addVerticalLines()
 
             # Remove duplicates in tempArr
+
             for element in tempArr:
                 element.parent = oldState
+
             # Concat next states with new states
-            self.nextStates = self.nextStates + tempArr[:]
+            for element in tempArr:
+                if element.values[0] < 1 and element.values[1] < 1:
+                    self.nextStates = self.nextStates + tempArr[:]
 
         newDict = dict()
         for obj in self.nextStates:
